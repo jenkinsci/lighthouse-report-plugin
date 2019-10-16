@@ -11,7 +11,7 @@ This will keep the html inside the plugin, but the data is pull in from your bui
 ```groovy
 // Generate your lighthouse report. 
 sh("npx lighthouse-ci https://www.example.com --jsonReport --report=.")
-lighthouseReport(readFile('./report.json'))
+lighthouseReport('./report.json')
 ```
 
 ## Screenshot

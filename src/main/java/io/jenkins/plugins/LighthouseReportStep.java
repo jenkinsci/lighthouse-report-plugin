@@ -9,36 +9,50 @@ import hudson.model.TaskListener;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Builder;
 import jenkins.tasks.SimpleBuildStep;
+import net.sf.json.JSONSerializer;
+import org.apache.commons.io.IOUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.DataBoundSetter;
 
 import javax.annotation.Nonnull;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 
-@Extension
+import static org.apache.commons.lang.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+
 public class LighthouseReportStep extends Builder implements SimpleBuildStep, Serializable {
 
     @Nonnull
-    private String json;
-
-    public LighthouseReportStep() {
-        this("");
-    }
+    private final String file;
 
     @DataBoundConstructor
-    public LighthouseReportStep(String json) {
-        this.json = json;
+    public LighthouseReportStep(String file) {
+        this.file = file;
     }
 
-    public String getJson() {
-        return json;
+    public String getFile() {
+        return file;
     }
 
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
-        run.addAction(new LighthouseReportBuildAction(this.json));
+        if (!isBlank(this.getFile())) {
+            FilePath f = workspace.child(this.getFile());
+            if (f.exists() && !f.isDirectory()) {
+                try (InputStream is = f.read()) {
+                    run.addAction(new LighthouseReportBuildAction(
+                        JSONSerializer.toJSON(IOUtils.toString(is, "UTF-8")).toString()
+                    ));
+                }
+            } else if (f.isDirectory()) {
+                throw new IllegalArgumentException(Messages.LighthouseReportStep_fileIsDirectory(f.getRemote()));
+            } else if (!f.exists()) {
+                throw new FileNotFoundException(Messages.LighthouseReportStep_fileNotFound(f.getRemote()));
+            }
+        }
     }
 
     @Symbol("lighthouseReport")
