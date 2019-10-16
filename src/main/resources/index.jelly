@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+    Displays a report for Google's <a href="https://developers.google.com/web/tools/lighthouse/">Lighthouse tool</a>
+</div>

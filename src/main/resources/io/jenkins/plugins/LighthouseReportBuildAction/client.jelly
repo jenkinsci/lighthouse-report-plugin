@@ -1,0 +1,31 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <j:new var="h" className="hudson.Functions" />
+    ${h.initPageVariables(context)}
+    <!-- response contentType header -->
+    <st:contentType value="text/html;charset=UTF-8" />
+    <!--
+      needed to generate a session if non exists,
+      without it we would add ";jsessionid=" to the url which will result in a 404
+    -->
+    <j:set var="_" value="${request.getSession()}"/>
+    <html>
+        <head data-rooturl="${rootURL}" data-resurl="${resURL}" resURL="${resURL}">
+            <meta charset="utf-8" />
+            <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+            <meta name="ROBOTS" content="INDEX,NOFOLLOW" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>Lighthouse Report</title>
+            <script>window.rootURL = "${rootURL}"</script>
+
+            <link rel="stylesheet" href="${rootURL}/plugin/lighthouse-report/js/script.css" />
+        </head>
+        <body>
+            <div id="root">Loading...</div>
+            <script src="./reportJSON"></script>
+            <script src="${rootURL}/plugin/lighthouse-report/script.js"></script>
+        </body>
+    </html>
+</j:jelly>
+
