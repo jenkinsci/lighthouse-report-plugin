@@ -18,13 +18,14 @@
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <title>Lighthouse Report</title>
             <script>window.rootURL = "${rootURL}"</script>
+            <style>body, html { height: 100%; width: 100%; margin: 0 }</style>
 
             <link rel="stylesheet" href="${rootURL}/plugin/lighthouse-report/js/script.css" />
         </head>
         <body>
             <div id="root">Loading...</div>
             <script src="./reportJson"></script>
-            <script src="${rootURL}/plugin/lighthouse-report/script.js"></script>
+            <script src="${resURL}/plugin/lighthouse-report/js/script.js"></script>
         </body>
     </html>
 </j:jelly>
