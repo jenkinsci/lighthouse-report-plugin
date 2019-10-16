@@ -2,10 +2,11 @@
 
 A simple app that displays a lighthouse report inside jenkins.
 
-## Usages
+## Usage
 
-```concept
-lighthouseReport('./report.json')
+```groovy
+// Generate your lighthouse report. 
+sh("npx lighthouse-ci https://www.example.com --jsonReport --report=.")
+lighthouseReport(readFile('./report.json'))
 ```
 
-## 

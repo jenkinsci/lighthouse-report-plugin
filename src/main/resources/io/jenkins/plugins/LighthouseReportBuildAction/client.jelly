@@ -23,7 +23,7 @@
         </head>
         <body>
             <div id="root">Loading...</div>
-            <script src="./reportJSON"></script>
+            <script src="./reportJson"></script>
             <script src="${rootURL}/plugin/lighthouse-report/script.js"></script>
         </body>
     </html>

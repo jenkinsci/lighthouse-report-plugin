@@ -10,9 +10,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 
-public class LighthouseReportBuildAction implements Action {
-    String json;
+public class LighthouseReportBuildAction implements Action, Serializable {
+    private final String json;
+
     public LighthouseReportBuildAction(String json) {
         this.json = json;
     }
@@ -20,7 +22,7 @@ public class LighthouseReportBuildAction implements Action {
     @CheckForNull
     @Override
     public String getIconFileName() {
-        return null;
+        return "/plugin/lighthouse-report/images/128x128/lighthouse.png";
     }
 
     @CheckForNull
