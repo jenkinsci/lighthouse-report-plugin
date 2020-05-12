@@ -21,20 +21,30 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
-import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 public class LighthouseReportStep extends Builder implements SimpleBuildStep, Serializable {
 
     @Nonnull
     private final String file;
 
+    private final String name;
+
     @DataBoundConstructor
-    public LighthouseReportStep(String file) {
+    public LighthouseReportStep(String file, String name) {
         this.file = file;
+        this.name = name;
     }
 
     public String getFile() {
         return file;
+    }
+
+    /**
+     * Returns report name, can be null if not configured
+     * @return name of report
+     */
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -44,7 +54,8 @@ public class LighthouseReportStep extends Builder implements SimpleBuildStep, Se
             if (f.exists() && !f.isDirectory()) {
                 try (InputStream is = f.read()) {
                     run.addAction(new LighthouseReportBuildAction(
-                        JSONSerializer.toJSON(IOUtils.toString(is, "UTF-8")).toString()
+                        JSONSerializer.toJSON(IOUtils.toString(is, "UTF-8")).toString(),
+                        name
                     ));
                 }
             } else if (f.isDirectory()) {

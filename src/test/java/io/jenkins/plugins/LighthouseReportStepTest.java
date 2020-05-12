@@ -23,9 +23,9 @@ public class LighthouseReportStepTest {
     public void testConfigRoundtrip() throws Exception {
         FreeStyleProject project = jenkins.createFreeStyleProject();
         File file = new File(getClass().getResource("report.json").getFile());
-        project.getBuildersList().add(new LighthouseReportStep(file.getAbsolutePath()));
+        project.getBuildersList().add(new LighthouseReportStep(file.getAbsolutePath(), "Report"));
         project = jenkins.configRoundtrip(project);
-        jenkins.assertEqualDataBoundBeans(new LighthouseReportStep(file.getAbsolutePath()), project.getBuildersList().get(0));
+        jenkins.assertEqualDataBoundBeans(new LighthouseReportStep(file.getAbsolutePath(), "Report"), project.getBuildersList().get(0));
     }
 
     @Test
@@ -33,7 +33,7 @@ public class LighthouseReportStepTest {
         FreeStyleProject project = jenkins.createFreeStyleProject();
         File file = new File(getClass().getResource("report.json").getFile());
 
-        LighthouseReportStep builder = new LighthouseReportStep(file.getAbsolutePath());
+        LighthouseReportStep builder = new LighthouseReportStep(file.getAbsolutePath(), "Report");
         project.getBuildersList().add(builder);
 
         FreeStyleBuild completedBuild = jenkins.buildAndAssertSuccess(project);
@@ -49,7 +49,7 @@ public class LighthouseReportStepTest {
         WorkflowJob job = jenkins.createProject(WorkflowJob.class, "test-scripted-pipeline");
         String pipelineScript
                 = "node {\n"
-                + "  lighthouseReport '" + file.getAbsolutePath() + "'\n"
+                + "  lighthouseReport (file:'" + file.getAbsolutePath() + "', name:'Report')\n"
                 + "}";
         job.setDefinition(new CpsFlowDefinition(pipelineScript, true));
         WorkflowRun completedBuild = jenkins.assertBuildStatusSuccess(job.scheduleBuild2(0));
