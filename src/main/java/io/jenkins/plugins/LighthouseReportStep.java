@@ -11,8 +11,10 @@ import hudson.tasks.Builder;
 import jenkins.tasks.SimpleBuildStep;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 
 import javax.annotation.Nonnull;
 import java.io.FileNotFoundException;
@@ -27,16 +29,25 @@ public class LighthouseReportStep extends Builder implements SimpleBuildStep, Se
     @Nonnull
     private final String file;
 
-    private final String name;
+    private String name;
 
     @DataBoundConstructor
-    public LighthouseReportStep(String file, String name) {
+    public LighthouseReportStep(final String file) {
         this.file = file;
+        this.name = StringUtils.EMPTY;
+    }
+
+    /**
+     * Sets the name of the report, if not set default name as lighthousereport is used
+     * @param name name of the report
+     */
+    @DataBoundSetter
+    public void setName(final String name) {
         this.name = name;
     }
 
     public String getFile() {
-        return file;
+        return this.file;
     }
 
     /**
@@ -44,7 +55,7 @@ public class LighthouseReportStep extends Builder implements SimpleBuildStep, Se
      * @return name of report
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
