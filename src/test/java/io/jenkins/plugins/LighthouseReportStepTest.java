@@ -74,9 +74,10 @@ public class LighthouseReportStepTest {
         File file = new File(getClass().getResource("report.json").getFile());
 
         WorkflowJob job = jenkins.createProject(WorkflowJob.class, "test-scripted-pipeline");
+        String filePath = file.getAbsolutePath().replace("\\", "\\\\");
         String pipelineScript
                 = "node {\n"
-                + "  lighthouseReport '" + file.getAbsolutePath() + "'\n"
+                + "  lighthouseReport '" + filePath + "'\n"
                 + "}";
         job.setDefinition(new CpsFlowDefinition(pipelineScript, true));
         WorkflowRun completedBuild = jenkins.assertBuildStatusSuccess(job.scheduleBuild2(0));
@@ -90,9 +91,11 @@ public class LighthouseReportStepTest {
         File file = new File(getClass().getResource("report.json").getFile());
 
         WorkflowJob job = jenkins.createProject(WorkflowJob.class, "test-scripted-pipeline");
+        String filePath = file.getAbsolutePath().replace("\\", "\\\\");
+
         String pipelineScript
             = "node {\n"
-            + "  lighthouseReport (file:'" + file.getAbsolutePath() + "', name:'My Report')\n"
+            + "  lighthouseReport (file:'" + filePath + "', name:'My Report')\n"
             + "}";
         job.setDefinition(new CpsFlowDefinition(pipelineScript, true));
         WorkflowRun completedBuild = jenkins.assertBuildStatusSuccess(job.scheduleBuild2(0));
