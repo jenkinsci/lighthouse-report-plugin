@@ -3,4 +3,7 @@
     <f:entry title="${%file}" field="file">
         <f:textbox />
     </f:entry>
+    <f:entry title="${%name}" field="name">
+        <f:textbox />
+    </f:entry>
 </j:jelly>

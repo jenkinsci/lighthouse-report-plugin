@@ -11,8 +11,10 @@ import hudson.tasks.Builder;
 import jenkins.tasks.SimpleBuildStep;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 
 import javax.annotation.Nonnull;
 import java.io.FileNotFoundException;
@@ -21,20 +23,39 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
-import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 public class LighthouseReportStep extends Builder implements SimpleBuildStep, Serializable {
 
     @Nonnull
     private final String file;
 
+    private String name;
+
     @DataBoundConstructor
-    public LighthouseReportStep(String file) {
+    public LighthouseReportStep(final String file) {
         this.file = file;
+        this.name = StringUtils.EMPTY;
+    }
+
+    /**
+     * Sets the name of the report, if not set default name as lighthousereport is used
+     * @param name name of the report
+     */
+    @DataBoundSetter
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public String getFile() {
-        return file;
+        return this.file;
+    }
+
+    /**
+     * Returns report name, can be null if not configured
+     * @return name of report
+     */
+    public String getName() {
+        return this.name;
     }
 
     @Override
@@ -44,7 +65,8 @@ public class LighthouseReportStep extends Builder implements SimpleBuildStep, Se
             if (f.exists() && !f.isDirectory()) {
                 try (InputStream is = f.read()) {
                     run.addAction(new LighthouseReportBuildAction(
-                        JSONSerializer.toJSON(IOUtils.toString(is, "UTF-8")).toString()
+                        JSONSerializer.toJSON(IOUtils.toString(is, "UTF-8")).toString(),
+                        name
                     ));
                 }
             } else if (f.isDirectory()) {

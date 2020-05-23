@@ -29,11 +29,38 @@ public class LighthouseReportStepTest {
     }
 
     @Test
+    public void testConfigRoundtripWithReportName() throws Exception {
+        FreeStyleProject project = jenkins.createFreeStyleProject();
+        File file = new File(getClass().getResource("report.json").getFile());
+        LighthouseReportStep lighthouseReportStep = new LighthouseReportStep(file.getAbsolutePath());
+        lighthouseReportStep.setName("My Report");
+        project.getBuildersList().add(lighthouseReportStep);
+        project = jenkins.configRoundtrip(project);
+
+        LighthouseReportStep lighthouseReportStepToValidate = new LighthouseReportStep(file.getAbsolutePath());
+        lighthouseReportStepToValidate.setName("My Report");
+        jenkins.assertEqualDataBoundBeans(lighthouseReportStepToValidate, project.getBuildersList().get(0));
+    }
+
+    @Test
     public void testBuild() throws Exception {
         FreeStyleProject project = jenkins.createFreeStyleProject();
         File file = new File(getClass().getResource("report.json").getFile());
 
         LighthouseReportStep builder = new LighthouseReportStep(file.getAbsolutePath());
+        project.getBuildersList().add(builder);
+
+        FreeStyleBuild completedBuild = jenkins.buildAndAssertSuccess(project);
+        assertNotNull(completedBuild.getAction(LighthouseReportBuildAction.class));
+    }
+
+    @Test
+    public void testBuildWithReportName() throws Exception {
+        FreeStyleProject project = jenkins.createFreeStyleProject();
+        File file = new File(getClass().getResource("report.json").getFile());
+
+        LighthouseReportStep builder = new LighthouseReportStep(file.getAbsolutePath());
+        builder.setName("My Report");
         project.getBuildersList().add(builder);
 
         FreeStyleBuild completedBuild = jenkins.buildAndAssertSuccess(project);
@@ -47,13 +74,31 @@ public class LighthouseReportStepTest {
         File file = new File(getClass().getResource("report.json").getFile());
 
         WorkflowJob job = jenkins.createProject(WorkflowJob.class, "test-scripted-pipeline");
+        String filePath = file.getAbsolutePath().replace("\\", "\\\\");
         String pipelineScript
                 = "node {\n"
-                + "  lighthouseReport '" + file.getAbsolutePath() + "'\n"
+                + "  lighthouseReport '" + filePath + "'\n"
                 + "}";
         job.setDefinition(new CpsFlowDefinition(pipelineScript, true));
         WorkflowRun completedBuild = jenkins.assertBuildStatusSuccess(job.scheduleBuild2(0));
         assertNotNull(completedBuild.getAction(LighthouseReportBuildAction.class));
     }
 
+    @Test
+    public void testScriptedPipelineWithReportName() throws Exception {
+        String agentLabel = "my-agent";
+        jenkins.createOnlineSlave(Label.get(agentLabel));
+        File file = new File(getClass().getResource("report.json").getFile());
+
+        WorkflowJob job = jenkins.createProject(WorkflowJob.class, "test-scripted-pipeline");
+        String filePath = file.getAbsolutePath().replace("\\", "\\\\");
+
+        String pipelineScript
+            = "node {\n"
+            + "  lighthouseReport (file:'" + filePath + "', name:'My Report')\n"
+            + "}";
+        job.setDefinition(new CpsFlowDefinition(pipelineScript, true));
+        WorkflowRun completedBuild = jenkins.assertBuildStatusSuccess(job.scheduleBuild2(0));
+        assertNotNull(completedBuild.getAction(LighthouseReportBuildAction.class));
+    }
 }
