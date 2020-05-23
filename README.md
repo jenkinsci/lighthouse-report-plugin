@@ -13,7 +13,7 @@ Report Name can also be specified to generate Lighthouse report with a specific 
 ```groovy
 // Generate your lighthouse report.
 node {
-    sh label:'Run Lighthouse', script:'npx lighthouse-ci https://www.example.com --jsonReport --report=.'
+   sh 'npx lighthouse-ci https://www.example.com --jsonReport --report=.'
     lighthouseReport('./report.json')
 }
 
