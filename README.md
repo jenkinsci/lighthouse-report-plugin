@@ -6,13 +6,24 @@ You can use archive() function to save files, but you cannot view any html with 
 
 This will keep the html inside the plugin, but the data is pull in from your build result.
 
+Report Name can also be specified to generate Lighthouse report with a specific name, supports multiple reports.
+
 ## Usage
 
 ```groovy
-// Generate your lighthouse report. 
-sh("npx lighthouse-ci https://www.example.com --jsonReport --report=.")
-lighthouseReport('./report.json')
-```
+// Generate your lighthouse report.
+node {
+   sh 'npx lighthouse-ci https://www.example.com --jsonReport --report=.'
+    lighthouseReport('./report.json')
+}
+
+//Generate your lighthouse report with specific report name
+node {
+   sh 'npx lighthouse-ci https://www.example.com --jsonReport --report=.'
+    lighthouseReport file: './report.json', name: 'My Report'
+}
+
+
 
 ## Screenshot
 
