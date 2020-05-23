@@ -19,7 +19,7 @@ node {
 
 //Generate your lighthouse report with specific report name
 node {
-    sh label:'Run Lighthouse', script:'npx lighthouse-ci https://www.example.com --jsonReport --report=.'
+   sh 'npx lighthouse-ci https://www.example.com --jsonReport --report=.'
     lighthouseReport file: './report.json', name: 'My Report'
 }
 
