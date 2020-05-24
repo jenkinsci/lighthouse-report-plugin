@@ -22,7 +22,7 @@ node {
    sh 'npx lighthouse-ci https://www.example.com --jsonReport --report=.'
     lighthouseReport file: './report.json', name: 'My Report'
 }
-
+```
 
 
 ## Screenshot
