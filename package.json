@@ -30,7 +30,7 @@
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.18.2",
     "react": "^16.13.1",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.13.1",
     "react-lighthouse-viewer": "^2.8.0"
   },
   "dependencies": {},
