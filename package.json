@@ -31,7 +31,7 @@
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-lighthouse-viewer": "^2.8.0"
+    "react-lighthouse-viewer": "^6.0.1"
   },
   "dependencies": {},
   "browserslist": [
