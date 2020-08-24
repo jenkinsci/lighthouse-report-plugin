@@ -28,7 +28,7 @@
     "eslint-plugin-react": "^7.20.5",
     "lighthouse": "^6.1.1",
     "parcel-bundler": "^1.12.4",
-    "prettier": "^2.0.5",
+    "prettier": "^2.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-lighthouse-viewer": "^6.0.1"
