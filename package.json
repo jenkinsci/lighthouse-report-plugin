@@ -26,7 +26,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-react": "^7.20.6",
-    "lighthouse": "^6.1.1",
+    "lighthouse": "^6.3.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.1.1",
     "react": "^16.13.1",
