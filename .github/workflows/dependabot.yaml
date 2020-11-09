@@ -1,7 +1,9 @@
 name: "Dependabot Automerge - Action"
 
 on:
-  pull_request:
+  pull_request_target:
+    types:
+      - opened
 
 jobs:
   worker:
@@ -20,4 +22,3 @@ jobs:
               body: '@dependabot merge'
             })
           github-token: ${{github.token}}
-
