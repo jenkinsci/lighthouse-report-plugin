@@ -23,7 +23,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "eslint": "^7.19.0",
-    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-react": "^7.20.6",
     "lighthouse": "^6.3.0",
