@@ -54,3 +54,11 @@ src/main/webapp/js/script.css
 src/main/webapp/js/script.css.map
 .cache/
 node/
+.classpath
+.parcel-cache/
+.project
+.settings/
+auth
+errors
+recording.mkv
+reports/
