@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel watch --public-url ./ ./src/main/resources/io/jenkins/plugins/LighthouseReportBuildAction/script.js --dist-dir ./src/main/webapp/js",
-    "mvnbuild": "parcel build --public-url ./ ./src/main/resources/io/jenkins/plugins/LighthouseReportBuildAction/script.js --dist-dir ./src/main/webapp/js",
+    "dev": "parcel watch --public-url ./ ./src/main/resources/io/jenkins/plugins/LighthouseReportBuildAction/script.js -d ./src/main/webapp/js",
+    "mvnbuild": "parcel build --public-url ./ ./src/main/resources/io/jenkins/plugins/LighthouseReportBuildAction/script.js -d ./src/main/webapp/js",
     "build": "npm run mvnbuild",
     "lint": "eslint  --ext .js,.jsx --ignore-path .gitignore src",
     "mvntest": "npm run lint",
@@ -23,7 +23,7 @@
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-react": "^7.24.0",
     "lighthouse": "^8.0.0",
-    "parcel": "^2.0.0-beta.2",
+    "parcel-bundler": "^1.12.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-lighthouse-viewer": "^6.0.2"
