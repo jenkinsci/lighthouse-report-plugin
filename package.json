@@ -24,8 +24,8 @@
     "eslint-plugin-react": "^7.26.1",
     "lighthouse": "^9.5.0",
     "parcel-bundler": "^1.12.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-lighthouse-viewer": "^6.0.2"
   },
   "dependencies": {},
