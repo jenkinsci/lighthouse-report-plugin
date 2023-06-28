@@ -26,7 +26,7 @@
     "parcel-bundler": "^1.12.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-lighthouse-viewer": "^6.0.2"
+    "react-lighthouse-viewer": "^6.0.3"
   },
   "dependencies": {},
   "browserslist": [
