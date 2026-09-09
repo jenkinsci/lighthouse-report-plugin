@@ -2,7 +2,6 @@ package io.jenkins.plugins;
 
 import hudson.model.Action;
 
-import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -38,7 +37,7 @@ public class LighthouseReportBuildAction implements Action, Serializable {
     @CheckForNull
     @Override
     public String getDisplayName() {
-        if (StringUtils.isNotEmpty(name)) {
+        if (name != null && !name.isEmpty()) {
             return Messages.LighthouseReportBuildAction_DisplayName_Configured(name);
         }
         return Messages.LighthouseReportBuildAction_DisplayName();
@@ -47,7 +46,7 @@ public class LighthouseReportBuildAction implements Action, Serializable {
     @CheckForNull
     @Override
     public String getUrlName() {
-        if (StringUtils.isNotEmpty(name)) {
+        if (name != null && !name.isEmpty()) {
             return "lighthousereport_" + sanitizeName(name);
         }
         return "lighthousereport";
