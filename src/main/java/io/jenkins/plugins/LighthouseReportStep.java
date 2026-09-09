@@ -11,22 +11,19 @@ import hudson.tasks.Builder;
 import jenkins.tasks.SimpleBuildStep;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
-
 public class LighthouseReportStep extends Builder implements SimpleBuildStep, Serializable {
 
-    @Nonnull
+    @NonNull
     private final String file;
 
     private String name;
@@ -34,7 +31,7 @@ public class LighthouseReportStep extends Builder implements SimpleBuildStep, Se
     @DataBoundConstructor
     public LighthouseReportStep(final String file) {
         this.file = file;
-        this.name = StringUtils.EMPTY;
+        this.name = "";
     }
 
     /**
@@ -60,7 +57,7 @@ public class LighthouseReportStep extends Builder implements SimpleBuildStep, Se
 
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
-        if (!isBlank(this.getFile())) {
+        if (!file.isBlank()) {
             FilePath f = workspace.child(this.getFile());
             if (f.exists() && !f.isDirectory()) {
                 try (InputStream is = f.read()) {

@@ -4,21 +4,19 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.40</version>
+        <version>6.2138.v03274d462c13</version>
         <relativePath />
     </parent>
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>lighthouse-report</artifactId>
-    <version>${revision}${changelist}</version>
+    <version>${changelist}</version>
     <packaging>hpi</packaging>
     <properties>
-        <revision>1.3.1</revision>
-        <changelist>-SNAPSHOT</changelist>
+        <changelist>999999-SNAPSHOT</changelist>
         <!-- Baseline Jenkins version you use to build the plugin. Users must have this version or newer to run. -->
-        <jenkins.version>2.263.4</jenkins.version>
-        <java.level>8</java.level>
-        <node.version>14.17.0</node.version>
-        <npm.version>6.14.10</npm.version>
+        <jenkins.version>2.555.3</jenkins.version>
+        <node.version>22.23.2</node.version>
+        <npm.version>10.9.9</npm.version>
     </properties>
     <name>Lighthouse Report Plugin</name>
     <description>Displays a report for Google's lighthouse tool</description>
@@ -33,8 +31,8 @@
         <dependencies>
             <dependency>
                 <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.263.x</artifactId>
-                <version>961.vf0c9f6f59827</version>
+                <artifactId>bom-2.555.x</artifactId>
+                <version>7002.v028a_3607ddc8</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -77,7 +75,7 @@
 
     <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
     <scm>
-        <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
+        <connection>scm:git:https://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
       <tag>HEAD</tag>
